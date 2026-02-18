@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة رقمية</title>
+
+<!-- مكتبة Animate.css للحركات -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+/* ====== عام ====== */
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    scroll-behavior: smooth;
+}
+
+a{text-decoration:none;}
+
+/* ====== رأس الموقع ====== */
+header{
+    background: linear-gradient(90deg,#ff512f,#dd2476);
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+}
+
+header h1{margin:0;font-size:32px;}
+header p{margin-top:10px;font-size:18px;}
+
+/* ====== الحاوية ====== */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+/* ====== الخدمات ====== */
+.services{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    padding:20px;
+    transition: transform 0.5s, box-shadow 0.5s;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.3);
+}
+
+.card img{
+    width:100%;
+    border-radius:15px;
+}
+
+.card h3{
+    color:#764ba2;
+    margin-top:15px;
+}
+
+button, .whatsapp-btn{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    border-radius:30px;
+    background: linear-gradient(90deg,#36d1dc,#5b86e5);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover, .whatsapp-btn:hover{
+    opacity:0.8;
+}
+
+/* ====== قسم التواصل ====== */
+.contact, .order-form{
+    background:white;
+    border-radius:15px;
+    text-align:center;
+    padding:25px 20px;
+    margin-top:40px;
+}
+
+.contact h2, .order-form h2{
+    color:#dd2476;
+}
+
+/* ====== نموذج الطلب ====== */
+.order-form form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.order-form input, .order-form textarea{
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:14px;
+    width:100%;
+    box-sizing:border-box;
+}
+
+/* ====== التذييل ====== */
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+/* ====== حركة عند التمرير ====== */
+.animate-on-scroll{
+    opacity:0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+}
+
+.animate-on-scroll.visible{
+    opacity:1;
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ====== الرأس ====== -->
+<header>
+<h1>📚 مكتبة رقمية</h1>
+<p>خدمات أكاديمية واحترافية بجودة عالية</p>
+<p> الهاتف: 0616745102</p>
+</header>
+
+<!-- ====== الحاوية الرئيسية ====== -->
+<div class="container">
+
+<!-- ====== خدمات الموقع ====== -->
+<div class="services">
+
+<div class="card animate-on-scroll">
+<img src="https://images.unsplash.com/photo-1581093588401-7f6eb7d0df15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="طباعة البحوث">
+<h3>🖨️ طباعة البحوث والوثائق</h3>
+<p>طباعة احترافية للبحوث والتقارير بجودة عالية.</p>
+<a href="https://wa.me/212616745102" target="_blank" class="whatsapp-btn">تواصل عبر واتساب</a>
+</div>
+
+<div class="card animate-on-scroll">
+<img src="https://images.unsplash.com/photo-1581090700227-8870c7ffb7f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="PowerPoint">
+<h3>📊 تصميم عروض PowerPoint</h3>
+<p>تصميم عروض تقديمية احترافية ومنظمة.</p>
+<a href="https://wa.me/212616745102" target="_blank" class="whatsapp-btn">تواصل عبر واتساب</a>
+</div>
+
+<div class="card animate-on-scroll">
+<img src="https://images.unsplash.com/photo-1581092588401-24b2f1024c15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="السيرة الذاتية">
+<h3>📝 كتابة وتنسيق السيرة الذاتية (CV)</h3>
+<p>إعداد سيرة ذاتية احترافية تزيد فرص قبولك.</p>
+<a href="https://wa.me/212616745102" target="_blank" class="whatsapp-btn">تواصل عبر واتساب</a>
+</div>
+
+<div class="card animate-on-scroll">
+<img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="ترجمة">
+<h3>🌍 ترجمة نصوص قصيرة (عربية–فرنسية)</h3>
+<p>ترجمة دقيقة وسريعة للنصوص القصيرة.</p>
+<a href="https://wa.me/212616745102" target="_blank" class="whatsapp-btn">تواصل عبر واتساب</a>
+</div>
+
+<div class="card animate-on-scroll">
+<img src="https://images.unsplash.com/photo-1581091215362-9c7a5e1d8d24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="ملخصات">
+<h3>📚 ملخصات دروس منظمة</h3>
+<p>تلخيص دروس بطريقة واضحة وسهلة للمراجعة.</p>
+<a href="https://wa.me/212616745102" target="_blank" class="whatsapp-btn">تواصل عبر واتساب</a>
+</div>
+
+</div> <!-- نهاية الخدمات -->
+
+<!-- ====== قسم التواصل ====== -->
+<div class="contact animate-on-scroll">
+<h2>📞 تواصل معنا</h2>
+<p>رقم الهاتف: <strong>0616745102</strong></p>
+<p>مصمم الموقع: بدر الدين الخميري</p>
+</div>
+
+<!-- ====== نموذج الطلبات ====== -->
+<div class="order-form animate-on-scroll">
+<h2>📝 أرسل طلبك للمشرفين</h2>
+<form action="https://formspree.io/f/mgolzead" method="POST">
+<input type="text" name="name" placeholder="اسمك الكامل" required>
+<input type="email" name="email" placeholder="البريد الإلكتروني" required>
+<textarea name="message" rows="5" placeholder="اكتب طلبك هنا" required></textarea>
+<button type="submit">إرسال الطلب</button>
+</form>
+<p>ستصل طلباتك مباشرة إلى بريد المشرفين على Formspree.</p>
+</div>
+
+</div> <!-- نهاية الحاوية -->
+
+<!-- ====== التذييل ====== -->
+<footer>
+© 2026 مكتبة رقمية | تصميم: بدر الدين الخميري
+</footer>
+
+<!-- ====== سكريبت الحركة عند التمرير ====== -->
+<script>
+const elements = document.querySelectorAll('.animate-on-scroll');
+window.addEventListener('scroll', () => {
+elements.forEach(el => {
+const top = el.getBoundingClientRect().top;
+const windowHeight = window.innerHeight;
+if(top < windowHeight - 50){
+el.classList.add('visible','animate__fadeInUp');
+}
+});
+});
+</script>
+
+</body>
+</html>
