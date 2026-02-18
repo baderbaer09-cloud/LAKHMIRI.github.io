@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المكتبة الرقمية | جميع الخدمات 5 دراهم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{
+margin:0;
+font-family:'Cairo',sans-serif;
+background:#f2f5f9;
+}
+
+header{
+background:linear-gradient(90deg,#4e73df,#1cc88a);
+color:white;
+padding:50px 20px;
+text-align:center;
+}
+
+section{
+padding:50px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+h2{
+text-align:center;
+color:#4e73df;
+margin-bottom:40px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+text-align:center;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.price{
+color:#1cc88a;
+font-size:18px;
+font-weight:bold;
+margin:10px 0;
+}
+
+button{
+background:#4e73df;
+color:white;
+border:none;
+padding:8px 18px;
+border-radius:25px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.8;
+}
+
+.cart{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+margin-top:40px;
+}
+
+footer{
+background:#2c3e50;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:40px;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#25D366;
+color:white;
+padding:15px;
+border-radius:50%;
+font-size:22px;
+text-decoration:none;
+box-shadow:0 5px 10px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>📚 المكتبة الرقمية</h1>
+<p>جميع الخدمات بسعر موحد 5 دراهم</p>
+<p>📞 0616745102</p>
+</header>
+
+<section>
+<h2>💼 خدماتنا</h2>
+
+<div class="grid">
+
+<script>
+const services = [
+"طباعة صفحة",
+"تلخيص درس",
+"تنسيق بحث",
+"إدخال نص Word",
+"تحويل PDF إلى Word",
+"تحويل Word إلى PDF",
+"تصميم غلاف بحث",
+"تصحيح إملائي",
+"ترجمة صفحة",
+"إنشاء جدول في Word",
+"إضافة فهرس تلقائي",
+"تصميم شهادة",
+"كتابة سيرة ذاتية",
+"تصميم عرض PowerPoint",
+"إدخال بيانات Excel",
+"تنسيق CV",
+"إنشاء بريد إلكتروني",
+"تصميم دعوة",
+"تحرير صور بسيطة",
+"تنظيم مراجع بحث",
+"تعديل ملف PDF",
+"إنشاء صفحة غلاف احترافية",
+"إضافة أرقام صفحات",
+"تحويل صورة إلى PDF",
+"إعداد بحث قصير",
+"إدخال معادلات",
+"تنسيق رسالة دافع",
+"إعداد ملخص",
+"إعادة صياغة فقرة",
+"إنشاء نموذج بسيط"
+];
+
+document.write(services.map(service => `
+<div class="card">
+<h3>${service}</h3>
+<p class="price">5 دراهم</p>
+<button onclick="addToCart('${service}',5)">أضف إلى السلة</button>
+</div>
+`).join(""));
+</script>
+
+</div>
+
+<div class="cart">
+<h3>🧾 سلة المشتريات</h3>
+<ul id="cart-items"></ul>
+<p>الإجمالي: <strong id="total">0</strong> درهم</p>
+<button onclick="checkout()">إتمام الطلب عبر واتساب</button>
+</div>
+
+</section>
+
+<footer>
+© 2026 المكتبة الرقمية | جميع الحقوق محفوظة
+</footer>
+
+<a class="whatsapp" href="https://wa.me/212616745102" target="_blank">💬</a>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(name, price){
+cart.push({name:name, price:price});
+total += price;
+updateCart();
+}
+
+function updateCart(){
+let list = document.getElementById("cart-items");
+list.innerHTML="";
+cart.forEach(item=>{
+let li=document.createElement("li");
+li.innerText=item.name+" - "+item.price+" درهم";
+list.appendChild(li);
+});
+document.getElementById("total").innerText=total;
+}
+
+function checkout(){
+if(cart.length==0){
+alert("السلة فارغة");
+return;
+}
+let message="طلب جديد:%0A";
+cart.forEach(item=>{
+message+=item.name+" - "+item.price+" درهم%0A";
+});
+message+="الإجمالي: "+total+" درهم";
+window.open("https://wa.me/212616745102?text="+message,"_blank");
+}
+</script>
+
+</body>
+</html>
