@@ -96,6 +96,7 @@ cursor:pointer;
 .section2 h2{color:#f6c23e;}
 .section3 h2{color:#1cc88a;}
 .section4 h2{color:#36b9cc;}
+.section5 h2{color:#ff9800;}
 
 footer{
 background:#2c3e50;
@@ -155,6 +156,7 @@ text-align:center;
 <button onclick="checkout()">إتمام الطلب</button>
 </div>
 
+<!-- الأقسام -->
 <section class="section1">
 <h2>خدمات +212762466324</h2>
 <div class="grid" id="s1"></div>
@@ -173,6 +175,11 @@ text-align:center;
 <section class="section4">
 <h2>خدمات +212628280383</h2>
 <div class="grid" id="s4"></div>
+</section>
+
+<section class="section5">
+<h2>خدمات 0616745102</h2>
+<div class="grid" id="s5"></div>
 </section>
 
 <footer>
@@ -233,7 +240,8 @@ const phones={
 s1:"212762466324",
 s2:"212603071948",
 s3:"212625864661",
-s4:"212628280383"
+s4:"212628280383",
+s5:"2120616745102" // الرقم الجديد
 };
 
 let cart=[];
@@ -250,6 +258,13 @@ const services=[
 "تصحيح إملائي"
 ];
 
+/* خدمات الرقم الجديد */
+const services_s5=[
+"خدمة أ",
+"خدمة ب",
+"خدمة ج"
+];
+
 function load(section){
 let box=document.getElementById(section);
 services.forEach(s=>{
@@ -263,7 +278,21 @@ box.innerHTML+=`
 });
 }
 
-load("s1");load("s2");load("s3");load("s4");
+function loadS5(){
+let box=document.getElementById("s5");
+services_s5.forEach(s=>{
+box.innerHTML+=`
+<div class="card">
+<h4>${s}</h4>
+<p class="price">5 دراهم</p>
+<button class="service" onclick="add('${s}','s5')">أضف</button>
+</div>
+`;
+});
+}
+
+// تحميل كل الخدمات
+load("s1");load("s2");load("s3");load("s4");loadS5();
 
 function add(name,section){
 cart.push({name:name,section:section});
