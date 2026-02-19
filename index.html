@@ -13,32 +13,7 @@ font-family:'Cairo',sans-serif;
 background:#f4f6fa;
 }
 
-/* تسجيل الدخول */
-#loginBox{
-position:fixed;
-inset:0;
-background:#000000cc;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:1000;
-}
-
-.login-content{
-background:white;
-padding:30px;
-border-radius:15px;
-text-align:center;
-width:300px;
-}
-
-.login-content input{
-width:90%;
-padding:10px;
-margin:8px 0;
-}
-
-/* الهيدر */
+/* HEADER */
 header{
 background:linear-gradient(90deg,#4e73df,#1cc88a);
 color:white;
@@ -52,12 +27,19 @@ font-weight:bold;
 }
 
 .members{
-margin-top:15px;
-font-size:16px;
+margin-top:10px;
 line-height:2;
 }
 
-/* لوحة التحكم */
+header button{
+margin-top:10px;
+padding:6px 15px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* DASHBOARD */
 #dashboard{
 display:none;
 background:white;
@@ -66,7 +48,7 @@ text-align:center;
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* السلة */
+/* CART */
 .cart{
 background:white;
 padding:15px;
@@ -101,16 +83,14 @@ color:#1cc88a;
 font-weight:bold;
 }
 
-button{
+button.service{
 background:#4e73df;
 color:white;
 border:none;
-padding:8px 18px;
+padding:6px 15px;
 border-radius:20px;
 cursor:pointer;
 }
-
-button:hover{opacity:0.8;}
 
 .section1 h2{color:#e74a3b;}
 .section2 h2{color:#f6c23e;}
@@ -124,23 +104,31 @@ text-align:center;
 padding:20px;
 margin-top:40px;
 }
+
+/* LOGIN MODAL */
+#loginBox{
+display:none;
+position:fixed;
+inset:0;
+background:#000000cc;
+justify-content:center;
+align-items:center;
+}
+
+.login-content{
+background:white;
+padding:30px;
+border-radius:15px;
+text-align:center;
+}
 </style>
 </head>
 
 <body>
 
-<!-- تسجيل دخول -->
-<div id="loginBox">
-<div class="login-content">
-<h3>تسجيل دخول الأعضاء</h3>
-<input type="text" id="username" placeholder="اسم المستخدم">
-<input type="password" id="password" placeholder="كلمة المرور">
-<button onclick="login()">دخول</button>
-</div>
-</div>
-
 <header>
 <div class="logo">📚 المكتبة الرقمية الخميري</div>
+
 <div class="members">
 أعضاء الفريق:<br>
 بدر الدين الخميري<br>
@@ -149,15 +137,17 @@ margin-top:40px;
 براهيم فارسي<br>
 مصطفى مريس
 </div>
+
+<button onclick="showLogin()">🔐 دخول الأعضاء</button>
 </header>
 
 <div id="dashboard">
 مرحبًا <span id="memberName"></span> |
-إجمالي الطلبات: <span id="ordersCount">0</span> |
-إجمالي الأرباح: <span id="earnings">0</span> درهم
+عدد الطلبات: <span id="ordersCount">0</span> |
+الأرباح: <span id="earnings">0</span> درهم
 </div>
 
-<!-- سلة في الأعلى -->
+<!-- سلة الطلبات -->
 <div class="cart">
 🛒 سلة الطلبات |
 الإجمالي: <strong id="total">0</strong> درهم
@@ -190,10 +180,21 @@ margin-top:40px;
 مصمم: بدر الدين الخميري
 </footer>
 
+<!-- LOGIN BOX -->
+<div id="loginBox">
+<div class="login-content">
+<h3>تسجيل دخول الأعضاء</h3>
+<input type="text" id="username" placeholder="اسم المستخدم"><br><br>
+<input type="password" id="password" placeholder="كلمة المرور"><br><br>
+<button onclick="login()">دخول</button>
+<button onclick="hideLogin()">إغلاق</button>
+</div>
+</div>
+
 <script>
 
 /* حسابات الأعضاء */
-const members = {
+const members={
 "badr":"1234",
 "hamza1":"1111",
 "hamza2":"2222",
@@ -205,20 +206,29 @@ let currentUser=null;
 let orders=0;
 let earnings=0;
 
+function showLogin(){
+document.getElementById("loginBox").style.display="flex";
+}
+
+function hideLogin(){
+document.getElementById("loginBox").style.display="none";
+}
+
 function login(){
 let u=document.getElementById("username").value;
 let p=document.getElementById("password").value;
+
 if(members[u] && members[u]===p){
 currentUser=u;
-document.getElementById("loginBox").style.display="none";
 document.getElementById("dashboard").style.display="block";
 document.getElementById("memberName").innerText=u;
+hideLogin();
 }else{
 alert("بيانات غير صحيحة");
 }
 }
 
-/* أرقام */
+/* الأرقام */
 const phones={
 s1:"212762466324",
 s2:"212603071948",
@@ -247,7 +257,7 @@ box.innerHTML+=`
 <div class="card">
 <h4>${s}</h4>
 <p class="price">5 دراهم</p>
-<button onclick="add('${s}','${section}')">أضف</button>
+<button class="service" onclick="add('${s}','${section}')">أضف</button>
 </div>
 `;
 });
@@ -278,8 +288,10 @@ if(cart.length==0){alert("السلة فارغة");return;}
 orders++;
 earnings+=total;
 
+if(currentUser){
 document.getElementById("ordersCount").innerText=orders;
 document.getElementById("earnings").innerText=earnings;
+}
 
 const grouped={};
 cart.forEach(i=>{
