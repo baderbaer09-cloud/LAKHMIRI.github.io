@@ -17,47 +17,71 @@ background:#f4f6fa;
 header{
 background:linear-gradient(90deg,#4e73df,#1cc88a);
 color:white;
+padding:20px;
+display:flex;
+flex-direction:column;
+align-items:center;
 text-align:center;
-padding:30px 20px;
+}
+
+.top-bar{
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
 }
 
 .logo{
-font-size:28px;
+font-size:24px;
 font-weight:bold;
 }
 
 .members{
 margin-top:10px;
-line-height:2;
+font-size:14px;
 }
 
-header button{
+.cart{
+background:white;
+color:black;
+padding:10px 15px;
+border-radius:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+max-width:300px;
+}
+
+.cart ul{
+margin:10px 0 0 0;
+padding:0;
+list-style:none;
+max-height:100px;
+overflow:auto;
+font-size:14px;
+}
+
+.cart button{
+margin-top:5px;
+padding:5px 10px;
+border:none;
+border-radius:15px;
+background:#4e73df;
+color:white;
+cursor:pointer;
+}
+
+/* LOGIN BUTTON */
+.login-btn{
 margin-top:10px;
 padding:6px 15px;
 border:none;
 border-radius:20px;
+background:#fff;
+color:#4e73df;
 cursor:pointer;
 }
 
-/* DASHBOARD */
-#dashboard{
-display:none;
-background:white;
-padding:15px;
-text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* CART */
-.cart{
-background:white;
-padding:15px;
-position:sticky;
-top:0;
-z-index:500;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
+/* SECTIONS */
 section{
 padding:40px 20px;
 max-width:1200px;
@@ -92,12 +116,6 @@ border-radius:20px;
 cursor:pointer;
 }
 
-.section1 h2{color:#e74a3b;}
-.section2 h2{color:#f6c23e;}
-.section3 h2{color:#1cc88a;}
-.section4 h2{color:#36b9cc;}
-.section5 h2{color:#ff9800;}
-
 footer{
 background:#2c3e50;
 color:white;
@@ -107,19 +125,26 @@ margin-top:40px;
 }
 
 /* LOGIN MODAL */
-#loginBox{
+#loginModal{
 display:none;
 position:fixed;
 inset:0;
-background:#000000cc;
+background:rgba(0,0,0,0.5);
 justify-content:center;
 align-items:center;
 }
 
-.login-content{
+#loginModal div{
 background:white;
-padding:30px;
+padding:25px;
 border-radius:15px;
+width:300px;
+text-align:center;
+}
+
+#adminPanel{
+display:none;
+padding:40px;
 text-align:center;
 }
 </style>
@@ -128,56 +153,52 @@ text-align:center;
 <body>
 
 <header>
-<div class="logo">📚 المكتبة الرقمية الخميري</div>
 
-<div class="members">
-أعضاء الفريق:<br>
-بدر الدين الخميري<br>
-حمزة اوجبور<br>
-حمزة شكوتي<br>
-براهيم فارسي<br>
-مصطفى مريس
-</div>
+<div class="top-bar">
+<div class="logo">📚 المكتبة الرقمية</div>
 
-<button onclick="showLogin()">🔐 دخول الأعضاء</button>
-</header>
-
-<div id="dashboard">
-مرحبًا <span id="memberName"></span> |
-عدد الطلبات: <span id="ordersCount">0</span> |
-الأرباح: <span id="earnings">0</span> درهم
-</div>
-
-<!-- سلة الطلبات -->
 <div class="cart">
-🛒 سلة الطلبات |
-الإجمالي: <strong id="total">0</strong> درهم
+🛒 الإجمالي: <strong id="total">0</strong> درهم
 <ul id="cart-items"></ul>
 <button onclick="checkout()">إتمام الطلب</button>
 </div>
+</div>
+
+<button class="login-btn" onclick="openLogin()">🔐 دخول الأعضاء</button>
+
+<div class="members">
+👥 أعضاء الفريق:
+بدر الدين الخميري |
+حمزة اوجبور |
+حمزة شكوتي |
+براهيم فارسي |
+مصطفى مريس
+</div>
+
+</header>
 
 <!-- الأقسام -->
-<section class="section1">
+<section>
 <h2>خدمات +212762466324</h2>
 <div class="grid" id="s1"></div>
 </section>
 
-<section class="section2">
+<section>
 <h2>خدمات +212603071948</h2>
 <div class="grid" id="s2"></div>
 </section>
 
-<section class="section3">
+<section>
 <h2>خدمات +212625864661</h2>
 <div class="grid" id="s3"></div>
 </section>
 
-<section class="section4">
+<section>
 <h2>خدمات +212628280383</h2>
 <div class="grid" id="s4"></div>
 </section>
 
-<section class="section5">
+<section>
 <h2>خدمات 0616745102</h2>
 <div class="grid" id="s5"></div>
 </section>
@@ -187,87 +208,51 @@ text-align:center;
 مصمم: بدر الدين الخميري
 </footer>
 
-<!-- LOGIN BOX -->
-<div id="loginBox">
-<div class="login-content">
+<!-- LOGIN -->
+<div id="loginModal">
+<div>
 <h3>تسجيل دخول الأعضاء</h3>
-<input type="text" id="username" placeholder="اسم المستخدم"><br><br>
-<input type="password" id="password" placeholder="كلمة المرور"><br><br>
-<button onclick="login()">دخول</button>
-<button onclick="hideLogin()">إغلاق</button>
+<input id="username" type="text" placeholder="اسم المستخدم" style="width:90%;padding:8px;margin:5px 0;"><br>
+<input id="password" type="password" placeholder="كلمة المرور" style="width:90%;padding:8px;margin:5px 0;"><br>
+<button onclick="login()" style="padding:6px 15px;background:#4e73df;color:white;border:none;border-radius:20px;">دخول</button>
+<button onclick="closeLogin()" style="padding:6px 15px;background:#e74a3b;color:white;border:none;border-radius:20px;">إغلاق</button>
+<p id="loginError" style="color:red;font-size:13px;"></p>
 </div>
+</div>
+
+<!-- لوحة التحكم -->
+<div id="adminPanel">
+<h2>لوحة تحكم الأعضاء</h2>
+<p>تم تسجيل الدخول بنجاح ✅</p>
+<button onclick="logout()" style="padding:6px 15px;background:#e74a3b;color:white;border:none;border-radius:20px;">تسجيل الخروج</button>
 </div>
 
 <script>
 
-/* حسابات الأعضاء */
-const members={
-"badr":"1234",
-"hamza1":"1111",
-"hamza2":"2222",
-"brahim":"3333",
-"mostafa":"4444"
-};
-
-let currentUser=null;
-let orders=0;
-let earnings=0;
-
-function showLogin(){
-document.getElementById("loginBox").style.display="flex";
-}
-
-function hideLogin(){
-document.getElementById("loginBox").style.display="none";
-}
-
-function login(){
-let u=document.getElementById("username").value;
-let p=document.getElementById("password").value;
-
-if(members[u] && members[u]===p){
-currentUser=u;
-document.getElementById("dashboard").style.display="block";
-document.getElementById("memberName").innerText=u;
-hideLogin();
-}else{
-alert("بيانات غير صحيحة");
-}
-}
-
-/* الأرقام */
+/* أرقام الواتساب */
 const phones={
 s1:"212762466324",
 s2:"212603071948",
 s3:"212625864661",
 s4:"212628280383",
-s5:"2120616745102" // الرقم الجديد
+s5:"212616745102"
+};
+
+/* الخدمات */
+const services={
+s1:["طباعة صفحة","تلخيص درس"],
+s2:["تنسيق بحث","ترجمة صفحة"],
+s3:["تصميم عرض","كتابة CV"],
+s4:["تحويل PDF","تصحيح إملائي"],
+s5:["إنجاز واجبات","بحث مدرسي"]
 };
 
 let cart=[];
 let total=0;
 
-const services=[
-"طباعة صفحة",
-"تلخيص درس",
-"تنسيق بحث",
-"ترجمة صفحة",
-"تصميم عرض",
-"كتابة CV",
-"تحويل PDF",
-"تصحيح إملائي"
-];
-
-/* خدمات الرقم الجديد */
-const services_s5=[
-"خدمة أ",
-"خدمة ب",
-"خدمة ج"
-];
-
 function load(section){
 let box=document.getElementById(section);
-services.forEach(s=>{
+services[section].forEach(s=>{
 box.innerHTML+=`
 <div class="card">
 <h4>${s}</h4>
@@ -278,21 +263,7 @@ box.innerHTML+=`
 });
 }
 
-function loadS5(){
-let box=document.getElementById("s5");
-services_s5.forEach(s=>{
-box.innerHTML+=`
-<div class="card">
-<h4>${s}</h4>
-<p class="price">5 دراهم</p>
-<button class="service" onclick="add('${s}','s5')">أضف</button>
-</div>
-`;
-});
-}
-
-// تحميل كل الخدمات
-load("s1");load("s2");load("s3");load("s4");loadS5();
+load("s1");load("s2");load("s3");load("s4");load("s5");
 
 function add(name,section){
 cart.push({name:name,section:section});
@@ -314,14 +285,6 @@ document.getElementById("total").innerText=total;
 function checkout(){
 if(cart.length==0){alert("السلة فارغة");return;}
 
-orders++;
-earnings+=total;
-
-if(currentUser){
-document.getElementById("ordersCount").innerText=orders;
-document.getElementById("earnings").innerText=earnings;
-}
-
 const grouped={};
 cart.forEach(i=>{
 if(!grouped[i.section]) grouped[i.section]=[];
@@ -338,6 +301,42 @@ cart=[];
 total=0;
 update();
 }
+
+/* تسجيل الدخول */
+const accounts={
+badr:"1234",
+hamza1:"1234",
+hamza2:"1234",
+ibrahim:"1234",
+mustafa:"1234"
+};
+
+function openLogin(){
+document.getElementById("loginModal").style.display="flex";
+}
+
+function closeLogin(){
+document.getElementById("loginModal").style.display="none";
+document.getElementById("loginError").innerText="";
+}
+
+function login(){
+const u=document.getElementById("username").value;
+const p=document.getElementById("password").value;
+
+if(accounts[u] && accounts[u]===p){
+document.querySelectorAll("section, header, footer").forEach(el=>el.style.display="none");
+document.getElementById("loginModal").style.display="none";
+document.getElementById("adminPanel").style.display="block";
+}else{
+document.getElementById("loginError").innerText="بيانات غير صحيحة";
+}
+}
+
+function logout(){
+location.reload();
+}
+
 </script>
 
 </body>
